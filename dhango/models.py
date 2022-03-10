@@ -7,16 +7,22 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
+# TODO @slamora: copy of ereuse_devicehub.resources.models.py
+STR_XSM_SIZE = 16
+STR_SM_SIZE = 32
+STR_SIZE = 64
+STR_BIG_SIZE = 128
+
 
 class Action(models.Model):
     updated = models.DateTimeField()
     created = models.DateTimeField()
     id = models.UUIDField(primary_key=True)
-    type = models.CharField(max_length=-1)
+    type = models.CharField(max_length=STR_SIZE)
     name = models.TextField()  # This field type is a guess.
     severity = models.SmallIntegerField()
     closed = models.BooleanField()
-    description = models.CharField(max_length=-1)
+    description = models.TextField()
     start_time = models.DateTimeField(blank=True, null=True)
     end_time = models.DateTimeField(blank=True, null=True)
     snapshot = models.ForeignKey('Snapshot', models.DO_NOTHING, blank=True, null=True)
@@ -93,7 +99,7 @@ class Agent(models.Model):
     updated = models.DateTimeField()
     created = models.DateTimeField()
     id = models.UUIDField(primary_key=True)
-    type = models.CharField(max_length=-1)
+    type = models.CharField(max_length=STR_SIZE)
     name = models.TextField(blank=True, null=True)  # This field type is a guess.
     tax_id = models.CharField(max_length=32, blank=True, null=True)
     country = models.TextField(blank=True, null=True)  # This field type is a guess.
@@ -199,7 +205,7 @@ class ComputerAccessory(models.Model):
 class Confirm(models.Model):
     user_id = models.UUIDField()
     action = models.ForeignKey(Action, models.DO_NOTHING)
-    id = models.OneToOneField(Action, models.DO_NOTHING, db_column='id', primary_key=True)
+    # id = models.OneToOneField(Action, models.DO_NOTHING, db_column='id', primary_key=True)
 
     class Meta:
         managed = False
@@ -209,7 +215,7 @@ class Confirm(models.Model):
 class ConfirmDocument(models.Model):
     user_id = models.UUIDField()
     action = models.ForeignKey(Action, models.DO_NOTHING)
-    id = models.OneToOneField(Action, models.DO_NOTHING, db_column='id', primary_key=True)
+    # id = models.OneToOneField(Action, models.DO_NOTHING, db_column='id', primary_key=True)
 
     class Meta:
         managed = False
@@ -279,10 +285,10 @@ class Device(models.Model):
     created = models.DateTimeField()
     id = models.BigIntegerField(primary_key=True)
     type = models.CharField(max_length=32)
-    hid = models.CharField(max_length=-1, blank=True, null=True)
-    model = models.CharField(max_length=-1, blank=True, null=True)
-    manufacturer = models.CharField(max_length=-1, blank=True, null=True)
-    serial_number = models.CharField(max_length=-1, blank=True, null=True)
+    hid = models.CharField(max_length=STR_SIZE, blank=True, null=True)
+    model = models.CharField(max_length=STR_SIZE, blank=True, null=True)
+    manufacturer = models.CharField(max_length=STR_SIZE, blank=True, null=True)
+    serial_number = models.CharField(max_length=STR_SIZE, blank=True, null=True)
     brand = models.TextField(blank=True, null=True)  # This field type is a guess.
     generation = models.SmallIntegerField(blank=True, null=True)
     version = models.TextField(blank=True, null=True)  # This field type is a guess.
@@ -294,7 +300,7 @@ class Device(models.Model):
     production_date = models.DateTimeField(blank=True, null=True)
     variant = models.TextField(blank=True, null=True)  # This field type is a guess.
     sku = models.TextField(blank=True, null=True)  # This field type is a guess.
-    image = models.CharField(max_length=-1, blank=True, null=True)
+    image = models.CharField(max_length=STR_SIZE, blank=True, null=True)
     owner_id = models.UUIDField()
     allocated = models.BooleanField(blank=True, null=True)
     devicehub_id = models.TextField(unique=True, blank=True, null=True)  # This field type is a guess.
@@ -346,7 +352,7 @@ class Document(models.Model):
     owner_id = models.UUIDField()
     file_name = models.TextField()  # This field type is a guess.
     file_hash = models.TextField()  # This field type is a guess.
-    url = models.CharField(max_length=-1, blank=True, null=True)
+    url = models.CharField(max_length=STR_SIZE, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -394,9 +400,9 @@ class Install(models.Model):
 class Inventory(models.Model):
     updated = models.DateTimeField()
     created = models.DateTimeField()
-    id = models.CharField(primary_key=True, max_length=-1)
+    id = models.CharField(primary_key=True, max_length=STR_SIZE)
     name = models.TextField(unique=True)  # This field type is a guess.
-    tag_provider = models.CharField(max_length=-1)
+    tag_provider = models.CharField(max_length=STR_SIZE)
     tag_token = models.UUIDField(unique=True)
     org_id = models.UUIDField()
 
@@ -406,7 +412,7 @@ class Inventory(models.Model):
 
 
 class Live(models.Model):
-    serial_number = models.CharField(max_length=-1, blank=True, null=True)
+    serial_number = models.CharField(max_length=STR_SIZE, blank=True, null=True)
     usage_time_hdd = models.DurationField(blank=True, null=True)
     snapshot_uuid = models.UUIDField(blank=True, null=True)
     software = models.TextField()  # This field type is a guess.
@@ -450,8 +456,8 @@ class LotDevice(models.Model):
 
 class Manufacturer(models.Model):
     name = models.TextField(primary_key=True)  # This field type is a guess.
-    url = models.CharField(unique=True, max_length=-1, blank=True, null=True)
-    logo = models.CharField(max_length=-1, blank=True, null=True)
+    url = models.CharField(unique=True, max_length=STR_SIZE, blank=True, null=True)
+    logo = models.CharField(max_length=STR_SIZE, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -473,7 +479,7 @@ class MeasureBattery(models.Model):
 class Membership(models.Model):
     updated = models.DateTimeField()
     created = models.DateTimeField()
-    id = models.CharField(max_length=-1, blank=True, null=True)
+    id = models.CharField(max_length=STR_SIZE, blank=True, null=True)
     organization = models.OneToOneField('Organization', models.DO_NOTHING, primary_key=True)
     individual = models.ForeignKey(Individual, models.DO_NOTHING)
 
@@ -484,7 +490,7 @@ class Membership(models.Model):
 
 
 class Migrate(models.Model):
-    other = models.CharField(max_length=-1)
+    other = models.CharField(max_length=STR_SIZE)
     id = models.OneToOneField(Action, models.DO_NOTHING, db_column='id', primary_key=True)
 
     class Meta:
@@ -495,7 +501,7 @@ class Migrate(models.Model):
 class Mobile(models.Model):
     id = models.OneToOneField(Device, models.DO_NOTHING, db_column='id', primary_key=True)
     imei = models.BigIntegerField(blank=True, null=True)
-    meid = models.CharField(max_length=-1, blank=True, null=True)
+    meid = models.CharField(max_length=STR_SIZE, blank=True, null=True)
     ram_size = models.IntegerField(blank=True, null=True)
     data_storage_size = models.IntegerField(blank=True, null=True)
     display_size = models.FloatField(blank=True, null=True)
@@ -538,9 +544,9 @@ class Motherboard(models.Model):
 
 class MoveOnDocument(models.Model):
     weight = models.FloatField(blank=True, null=True)
-    container_from = models.ForeignKey('TradeDocument', models.DO_NOTHING)
-    container_to = models.ForeignKey('TradeDocument', models.DO_NOTHING)
-    id = models.OneToOneField(Action, models.DO_NOTHING, db_column='id', primary_key=True)
+    container_from = models.ForeignKey('TradeDocument', models.DO_NOTHING, related_name="moveondocument_from")
+    container_to = models.ForeignKey('TradeDocument', models.DO_NOTHING, related_name="moveondocument_to")
+    # id = models.OneToOneField(Action, models.DO_NOTHING, db_column='id', primary_key=True)
 
     class Meta:
         managed = False
@@ -598,7 +604,7 @@ class Price(models.Model):
     currency = models.TextField()  # This field type is a guess.
     price = models.DecimalField(max_digits=19, decimal_places=4)
     software = models.TextField(blank=True, null=True)  # This field type is a guess.
-    version = models.CharField(max_length=-1, blank=True, null=True)
+    version = models.CharField(max_length=STR_SIZE, blank=True, null=True)
     rating = models.ForeignKey('Rate', models.DO_NOTHING, blank=True, null=True)
     id = models.OneToOneField(ActionWithOneDevice, models.DO_NOTHING, db_column='id', primary_key=True)
 
@@ -624,7 +630,7 @@ class Processor(models.Model):
     cores = models.SmallIntegerField(blank=True, null=True)
     threads = models.SmallIntegerField(blank=True, null=True)
     address = models.SmallIntegerField(blank=True, null=True)
-    abi = models.CharField(max_length=-1, blank=True, null=True)
+    abi = models.CharField(max_length=STR_SIZE, blank=True, null=True)
     id = models.OneToOneField(Component, models.DO_NOTHING, db_column='id', primary_key=True)
 
     class Meta:
@@ -646,7 +652,7 @@ class RamModule(models.Model):
 
 class Rate(models.Model):
     rating = models.FloatField(blank=True, null=True)
-    version = models.CharField(max_length=-1, blank=True, null=True)
+    version = models.CharField(max_length=STR_SIZE, blank=True, null=True)
     appearance = models.FloatField(blank=True, null=True)
     functionality = models.FloatField(blank=True, null=True)
     id = models.OneToOneField(ActionWithOneDevice, models.DO_NOTHING, db_column='id', primary_key=True)
@@ -751,7 +757,7 @@ class Tag(models.Model):
     id = models.TextField(primary_key=True)  # This field type is a guess.
     owner_id = models.UUIDField()
     org = models.ForeignKey(Organization, models.DO_NOTHING, blank=True, null=True)
-    provider = models.CharField(max_length=-1, blank=True, null=True)
+    provider = models.CharField(max_length=STR_SIZE, blank=True, null=True)
     device = models.ForeignKey(Device, models.DO_NOTHING, blank=True, null=True)
     secondary = models.TextField(blank=True, null=True)  # This field type is a guess.
 
@@ -807,7 +813,7 @@ class TestConnectivity(models.Model):
 
 class TestDataStorage(models.Model):
     length = models.TextField()  # This field type is a guess.
-    status = models.CharField(max_length=-1)
+    status = models.CharField(max_length=STR_SIZE)
     lifetime = models.DurationField(blank=True, null=True)
     assessment = models.BooleanField(blank=True, null=True)
     reallocated_sector_count = models.BigIntegerField(blank=True, null=True)
@@ -884,7 +890,7 @@ class TradeDocument(models.Model):
     lot = models.ForeignKey(Lot, models.DO_NOTHING)
     file_name = models.TextField(blank=True, null=True)  # This field type is a guess.
     file_hash = models.TextField(blank=True, null=True)  # This field type is a guess.
-    url = models.CharField(max_length=-1, blank=True, null=True)
+    url = models.CharField(max_length=STR_SIZE, blank=True, null=True)
     weight = models.FloatField(blank=True, null=True)
 
     class Meta:
