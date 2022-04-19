@@ -695,7 +695,7 @@ class Session(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'session'
+        db_table = 'common\".\"session'
 
 
 class Snapshot(models.Model):
@@ -910,7 +910,7 @@ class User(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'user'
+        db_table = 'common\".\"user'
 
 
 class UserInventory(models.Model):
@@ -919,7 +919,7 @@ class UserInventory(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'user_inventory'
+        db_table = 'common\".\"user_inventory'
         unique_together = (('user', 'inventory'),)
 
 
