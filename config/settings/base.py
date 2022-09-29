@@ -10,7 +10,7 @@ ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 APPS_DIR = ROOT_DIR / "dhango"
 env = environ.Env()
 
-READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
+READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=True)
 if READ_DOT_ENV_FILE:
     # OS environment variables take precedence over variables from .env
     env.read_env(str(ROOT_DIR / ".env"))
@@ -40,11 +40,25 @@ LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 # DATABASES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {"default": env.db("DATABASE_URL")}
-DATABASES["default"]["ATOMIC_REQUESTS"] = True
-DATABASES["default"]["OPTIONS"] = {
-    "options": "-c search_path=" + env.str("DH_DATABASE_SCHEMA")
+# DH_DATABASE_SCHEMA = env.str("DH_DATABASE_SCHEMA")
+
+# DATABASES = {"default": env.db("DATABASE_URL")}
+# DATABASES["default"]["ATOMIC_REQUESTS"] = True
+# DATABASES["default"]["OPTIONS"] = {
+#     "options": "-c search_path=" + DH_DATABASE_SCHEMA
+# }
+
+DATABASES = {}
+# store django stuff on sqlite
+DATABASES["default"] = {
+    'ENGINE': 'django.db.backends.sqlite3',
+    'NAME': 'mydatabase',
 }
+
+DATABASES["flask_db"] = env.db("DATABASE_URL")
+DATABASES["flask_db"]["ATOMIC_REQUESTS"] = True
+
+DATABASE_ROUTERS = ['dhango.routers.FlaskRouter']
 
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -84,11 +98,6 @@ LOCAL_APPS = [
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
-
-# MIGRATIONS
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
-MIGRATION_MODULES = {"sites": "dhango.contrib.sites.migrations"}
 
 # AUTHENTICATION
 # ------------------------------------------------------------------------------
