@@ -13,6 +13,10 @@ STR_SM_SIZE = 32
 STR_SIZE = 64
 STR_BIG_SIZE = 128
 
+# TODO load from settings or .env
+# from django.conf import settings
+DH_SCHEMA = "dbtest"
+
 
 class Action(models.Model):
     updated = models.DateTimeField()
@@ -32,7 +36,7 @@ class Action(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'action'
+        db_table = f'{DH_SCHEMA}\".\"action'
 
 
 class ActionComponent(models.Model):
@@ -41,7 +45,7 @@ class ActionComponent(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'action_component'
+        db_table = f'{DH_SCHEMA}\".\"action_component'
         unique_together = (('device', 'action'),)
 
 
@@ -53,7 +57,7 @@ class ActionDevice(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'action_device'
+        db_table = f'{DH_SCHEMA}\".\"action_device'
         unique_together = (('device', 'action'),)
 
 
@@ -64,7 +68,7 @@ class ActionStatus(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'action_status'
+        db_table = f'{DH_SCHEMA}\".\"action_status'
 
 
 class ActionStatusDocuments(models.Model):
@@ -73,7 +77,7 @@ class ActionStatusDocuments(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'action_status_documents'
+        db_table = f'{DH_SCHEMA}\".\"action_status_documents'
 
 
 class ActionTradeDocument(models.Model):
@@ -82,7 +86,7 @@ class ActionTradeDocument(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'action_trade_document'
+        db_table = f'{DH_SCHEMA}\".\"action_trade_document'
         unique_together = (('document', 'action'),)
 
 
@@ -92,7 +96,7 @@ class ActionWithOneDevice(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'action_with_one_device'
+        db_table = f'{DH_SCHEMA}\".\"action_with_one_device'
 
 
 class Agent(models.Model):
@@ -108,7 +112,7 @@ class Agent(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'agent'
+        db_table = f'{DH_SCHEMA}\".\"agent'
         unique_together = (('tax_id', 'name'), ('tax_id', 'country'),)
 
 
@@ -120,7 +124,7 @@ class Allocate(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'allocate'
+        db_table = f'{DH_SCHEMA}\".\"allocate'
 
 
 class Battery(models.Model):
@@ -131,7 +135,7 @@ class Battery(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'battery'
+        db_table = f'{DH_SCHEMA}\".\"battery'
 
 
 class Benchmark(models.Model):
@@ -140,7 +144,7 @@ class Benchmark(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'benchmark'
+        db_table = f'{DH_SCHEMA}\".\"benchmark'
 
 
 class BenchmarkDataStorage(models.Model):
@@ -150,7 +154,7 @@ class BenchmarkDataStorage(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'benchmark_data_storage'
+        db_table = f'{DH_SCHEMA}\".\"benchmark_data_storage'
 
 
 class BenchmarkWithRate(models.Model):
@@ -159,7 +163,7 @@ class BenchmarkWithRate(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'benchmark_with_rate'
+        db_table = f'{DH_SCHEMA}\".\"benchmark_with_rate'
 
 
 class Component(models.Model):
@@ -176,7 +180,7 @@ class Component(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'component'
+        db_table = f'{DH_SCHEMA}\".\"component'
 
 
 class Computer(models.Model):
@@ -190,7 +194,7 @@ class Computer(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'computer'
+        db_table = f'{DH_SCHEMA}\".\"computer'
 
 
 class ComputerAccessory(models.Model):
@@ -199,7 +203,7 @@ class ComputerAccessory(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'computer_accessory'
+        db_table = f'{DH_SCHEMA}\".\"computer_accessory'
 
 
 class Confirm(models.Model):
@@ -209,7 +213,7 @@ class Confirm(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'confirm'
+        db_table = f'{DH_SCHEMA}\".\"confirm'
 
 
 class ConfirmDocument(models.Model):
@@ -219,7 +223,7 @@ class ConfirmDocument(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'confirm_document'
+        db_table = f'{DH_SCHEMA}\".\"confirm_document'
 
 
 class DataStorage(models.Model):
@@ -229,7 +233,7 @@ class DataStorage(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'data_storage'
+        db_table = f'{DH_SCHEMA}\".\"data_storage'
 
 
 class DataWipe(models.Model):
@@ -238,7 +242,7 @@ class DataWipe(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'data_wipe'
+        db_table = f'{DH_SCHEMA}\".\"data_wipe'
 
 
 class DataWipeDocument(models.Model):
@@ -248,7 +252,7 @@ class DataWipeDocument(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'data_wipe_document'
+        db_table = f'{DH_SCHEMA}\".\"data_wipe_document'
 
 
 class Deallocate(models.Model):
@@ -257,7 +261,7 @@ class Deallocate(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'deallocate'
+        db_table = f'{DH_SCHEMA}\".\"deallocate'
 
 
 class Deliverynote(models.Model):
@@ -277,7 +281,7 @@ class Deliverynote(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'deliverynote'
+        db_table = f'{DH_SCHEMA}\".\"deliverynote'
 
 
 class Device(models.Model):
@@ -313,7 +317,7 @@ class Device(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'device'
+        db_table = f'{DH_SCHEMA}\".\"device'
 
 
 class DeviceSearch(models.Model):
@@ -324,7 +328,7 @@ class DeviceSearch(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'device_search'
+        db_table = f'{DH_SCHEMA}\".\"device_search'
 
 
 class Display(models.Model):
@@ -339,7 +343,7 @@ class Display(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'display'
+        db_table = f'{DH_SCHEMA}\".\"display'
 
 
 class Document(models.Model):
@@ -356,7 +360,7 @@ class Document(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'document'
+        db_table = f'{DH_SCHEMA}\".\"document'
 
 
 class EraseBasic(models.Model):
@@ -365,7 +369,7 @@ class EraseBasic(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'erase_basic'
+        db_table = f'{DH_SCHEMA}\".\"erase_basic'
 
 
 class GraphicCard(models.Model):
@@ -374,7 +378,7 @@ class GraphicCard(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'graphic_card'
+        db_table = f'{DH_SCHEMA}\".\"graphic_card'
 
 
 class Individual(models.Model):
@@ -384,7 +388,7 @@ class Individual(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'individual'
+        db_table = f'{DH_SCHEMA}\".\"individual'
 
 
 class Install(models.Model):
@@ -394,21 +398,7 @@ class Install(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'install'
-
-
-class Inventory(models.Model):
-    updated = models.DateTimeField()
-    created = models.DateTimeField()
-    id = models.CharField(primary_key=True, max_length=STR_SIZE)
-    name = models.TextField(unique=True)  # This field type is a guess.
-    tag_provider = models.CharField(max_length=STR_SIZE)
-    tag_token = models.UUIDField(unique=True)
-    org_id = models.UUIDField()
-
-    class Meta:
-        managed = False
-        db_table = 'inventory'
+        db_table = f'{DH_SCHEMA}\".\"install'
 
 
 class Live(models.Model):
@@ -422,7 +412,7 @@ class Live(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'live'
+        db_table = f'{DH_SCHEMA}\".\"live'
 
 
 class Lot(models.Model):
@@ -439,7 +429,7 @@ class Lot(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'lot'
+        db_table = f'{DH_SCHEMA}\".\"lot'
 
 
 class LotDevice(models.Model):
@@ -450,18 +440,8 @@ class LotDevice(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'lot_device'
+        db_table = f'{DH_SCHEMA}\".\"lot_device'
         unique_together = (('device', 'lot'),)
-
-
-class Manufacturer(models.Model):
-    name = models.TextField(primary_key=True)  # This field type is a guess.
-    url = models.CharField(unique=True, max_length=STR_SIZE, blank=True, null=True)
-    logo = models.CharField(max_length=STR_SIZE, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'manufacturer'
 
 
 class MeasureBattery(models.Model):
@@ -473,7 +453,7 @@ class MeasureBattery(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'measure_battery'
+        db_table = f'{DH_SCHEMA}\".\"measure_battery'
 
 
 class Membership(models.Model):
@@ -485,7 +465,7 @@ class Membership(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'membership'
+        db_table = f'{DH_SCHEMA}\".\"membership'
         unique_together = (('id', 'organization'), ('organization', 'individual'),)
 
 
@@ -495,7 +475,7 @@ class Migrate(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'migrate'
+        db_table = f'{DH_SCHEMA}\".\"migrate'
 
 
 class Mobile(models.Model):
@@ -508,7 +488,7 @@ class Mobile(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'mobile'
+        db_table = f'{DH_SCHEMA}\".\"mobile'
 
 
 class Monitor(models.Model):
@@ -523,7 +503,7 @@ class Monitor(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'monitor'
+        db_table = f'{DH_SCHEMA}\".\"monitor'
 
 
 class Motherboard(models.Model):
@@ -539,7 +519,7 @@ class Motherboard(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'motherboard'
+        db_table = f'{DH_SCHEMA}\".\"motherboard'
 
 
 class MoveOnDocument(models.Model):
@@ -550,7 +530,7 @@ class MoveOnDocument(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'move_on_document'
+        db_table = f'{DH_SCHEMA}\".\"move_on_document'
 
 
 class NetworkAdapter(models.Model):
@@ -560,7 +540,7 @@ class NetworkAdapter(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'network_adapter'
+        db_table = f'{DH_SCHEMA}\".\"network_adapter'
 
 
 class Networking(models.Model):
@@ -570,7 +550,7 @@ class Networking(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'networking'
+        db_table = f'{DH_SCHEMA}\".\"networking'
 
 
 class Organization(models.Model):
@@ -578,7 +558,7 @@ class Organization(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'organization'
+        db_table = f'{DH_SCHEMA}\".\"organization'
 
 
 class Organize(models.Model):
@@ -586,7 +566,7 @@ class Organize(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'organize'
+        db_table = f'{DH_SCHEMA}\".\"organize'
 
 
 class Path(models.Model):
@@ -597,7 +577,7 @@ class Path(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'path'
+        db_table = f'{DH_SCHEMA}\".\"path'
 
 
 class Price(models.Model):
@@ -610,7 +590,7 @@ class Price(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'price'
+        db_table = f'{DH_SCHEMA}\".\"price'
 
 
 class Printer(models.Model):
@@ -622,7 +602,7 @@ class Printer(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'printer'
+        db_table = f'{DH_SCHEMA}\".\"printer'
 
 
 class Processor(models.Model):
@@ -635,7 +615,7 @@ class Processor(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'processor'
+        db_table = f'{DH_SCHEMA}\".\"processor'
 
 
 class RamModule(models.Model):
@@ -647,7 +627,7 @@ class RamModule(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'ram_module'
+        db_table = f'{DH_SCHEMA}\".\"ram_module'
 
 
 class Rate(models.Model):
@@ -659,7 +639,7 @@ class Rate(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'rate'
+        db_table = f'{DH_SCHEMA}\".\"rate'
 
 
 class RateComputer(models.Model):
@@ -671,7 +651,7 @@ class RateComputer(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'rate_computer'
+        db_table = f'{DH_SCHEMA}\".\"rate_computer'
 
 
 class ReportHash(models.Model):
@@ -681,21 +661,7 @@ class ReportHash(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'report_hash'
-
-
-class Session(models.Model):
-    updated = models.DateTimeField()
-    created = models.DateTimeField()
-    id = models.BigIntegerField(primary_key=True)
-    expired = models.BigIntegerField(blank=True, null=True)
-    token = models.UUIDField(unique=True)
-    type = models.SmallIntegerField()
-    user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'common\".\"session'
+        db_table = f'{DH_SCHEMA}\".\"report_hash'
 
 
 class Snapshot(models.Model):
@@ -707,7 +673,7 @@ class Snapshot(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'snapshot'
+        db_table = f'{DH_SCHEMA}\".\"snapshot'
 
 
 class SnapshotRequest(models.Model):
@@ -716,7 +682,7 @@ class SnapshotRequest(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'snapshot_request'
+        db_table = f'{DH_SCHEMA}\".\"snapshot_request'
 
 
 class SoundCard(models.Model):
@@ -724,7 +690,7 @@ class SoundCard(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'sound_card'
+        db_table = f'{DH_SCHEMA}\".\"sound_card'
 
 
 class Step(models.Model):
@@ -737,7 +703,7 @@ class Step(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'step'
+        db_table = f'{DH_SCHEMA}\".\"step'
         unique_together = (('erasure', 'num'),)
 
 
@@ -747,7 +713,7 @@ class StressTest(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'stress_test'
+        db_table = f'{DH_SCHEMA}\".\"stress_test'
 
 
 class Tag(models.Model):
@@ -763,7 +729,7 @@ class Tag(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'tag'
+        db_table = f'{DH_SCHEMA}\".\"tag'
         unique_together = (('secondary', 'owner_id'), ('id', 'owner_id'),)
 
 
@@ -772,7 +738,7 @@ class Test(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'test'
+        db_table = f'{DH_SCHEMA}\".\"test'
 
 
 class TestAudio(models.Model):
@@ -782,7 +748,7 @@ class TestAudio(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'test_audio'
+        db_table = f'{DH_SCHEMA}\".\"test_audio'
 
 
 class TestBios(models.Model):
@@ -792,7 +758,7 @@ class TestBios(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'test_bios'
+        db_table = f'{DH_SCHEMA}\".\"test_bios'
 
 
 class TestCamera(models.Model):
@@ -800,7 +766,7 @@ class TestCamera(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'test_camera'
+        db_table = f'{DH_SCHEMA}\".\"test_camera'
 
 
 class TestConnectivity(models.Model):
@@ -808,7 +774,7 @@ class TestConnectivity(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'test_connectivity'
+        db_table = f'{DH_SCHEMA}\".\"test_connectivity'
 
 
 class TestDataStorage(models.Model):
@@ -828,7 +794,7 @@ class TestDataStorage(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'test_data_storage'
+        db_table = f'{DH_SCHEMA}\".\"test_data_storage'
 
 
 class TestDisplayHinge(models.Model):
@@ -836,7 +802,7 @@ class TestDisplayHinge(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'test_display_hinge'
+        db_table = f'{DH_SCHEMA}\".\"test_display_hinge'
 
 
 class TestKeyboard(models.Model):
@@ -844,7 +810,7 @@ class TestKeyboard(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'test_keyboard'
+        db_table = f'{DH_SCHEMA}\".\"test_keyboard'
 
 
 class TestPowerAdapter(models.Model):
@@ -852,7 +818,7 @@ class TestPowerAdapter(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'test_power_adapter'
+        db_table = f'{DH_SCHEMA}\".\"test_power_adapter'
 
 
 class TestTrackpad(models.Model):
@@ -860,7 +826,7 @@ class TestTrackpad(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'test_trackpad'
+        db_table = f'{DH_SCHEMA}\".\"test_trackpad'
 
 
 class Trade(models.Model):
@@ -876,7 +842,7 @@ class Trade(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'trade'
+        db_table = f'{DH_SCHEMA}\".\"trade'
 
 
 class TradeDocument(models.Model):
@@ -895,32 +861,7 @@ class TradeDocument(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'trade_document'
-
-
-class User(models.Model):
-    updated = models.DateTimeField()
-    created = models.DateTimeField()
-    id = models.UUIDField(primary_key=True)
-    email = models.CharField(unique=True, max_length=255)
-    password = models.BinaryField(blank=True, null=True)
-    token = models.UUIDField(unique=True)
-    active = models.BooleanField()
-    phantom = models.BooleanField()
-
-    class Meta:
-        managed = False
-        db_table = 'common\".\"user'
-
-
-class UserInventory(models.Model):
-    user = models.OneToOneField(User, models.DO_NOTHING, primary_key=True)
-    inventory = models.ForeignKey(Inventory, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'common\".\"user_inventory'
-        unique_together = (('user', 'inventory'),)
+        db_table = f'{DH_SCHEMA}\".\"trade_document'
 
 
 class VisualTest(models.Model):
@@ -931,4 +872,4 @@ class VisualTest(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'visual_test'
+        db_table = f'{DH_SCHEMA}\".\"visual_test'
